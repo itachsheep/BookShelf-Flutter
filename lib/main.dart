@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:legado_flutter/models/user_model.dart';
+import 'package:legado_flutter/pages/home_page/home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      Provider<User>(
+        create: (context) => User(),
+      )
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -50,8 +60,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<String> items = new List<String>.generate(10000, (i) => "Item $i");
-
+  int _selectedIndex = 0;
+  PageController _pageController;
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -66,18 +76,42 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: new Text('${items[index]}'),
-            );
-          },
-        ),
+      body: PageView(
+        children: <Widget>[Home()],
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              backgroundColor: Colors.black87,
+              icon: Icon(Icons.home),
+              title: Text('Home')),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.black87,
+              icon: Icon(Icons.business),
+              title: Text('Business')),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.black87,
+              icon: Icon(Icons.school),
+              title: Text('School')),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.black87,
+              icon: Icon(Icons.restaurant),
+              title: Text('Restaurant')),
+        ],
+        currentIndex: _selectedIndex,
+        backgroundColor: Colors.black87,
+        fixedColor: Colors.blue,
+        onTap: _onItemTapped,
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void _onItemTapped(index) {
+    _pageController.jumpToPage(index);
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }
