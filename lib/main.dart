@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:legado_flutter/models/user_model.dart';
-import 'package:legado_flutter/pages/SearchPage.dart';
+import 'package:legado_flutter/pages/personal_page/PersonalPage.dart';
+import 'package:legado_flutter/pages/search_page/SearchPage.dart';
 import 'package:legado_flutter/pages/home_page/home_page.dart';
+import 'package:legado_flutter/pages/subscribe_page/SubscribePage.dart';
 import 'package:legado_flutter/utils/logutils.dart';
 import 'package:provider/provider.dart';
 
@@ -59,6 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Home(),
           SearchPage(),
+          SubScribePage(),
+          PersonalPage()
         ],
         controller: _pageController,
         physics: NeverScrollableScrollPhysics(),

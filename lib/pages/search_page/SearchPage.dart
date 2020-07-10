@@ -15,7 +15,7 @@ class _SearchPageState extends State<SearchPage> {
       children: <Widget>[
         new Row(
           children: <Widget>[
-            Text("输入框------------"),
+            Text("搜索主页"),
             RaisedButton(
               child: Text("点击"),
             )
