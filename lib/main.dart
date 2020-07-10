@@ -43,62 +43,58 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TAG = "_MyHomePageState";
-  int _selectedIndex = 0;
-  PageController _pageController = new PageController();
+  int currentPosition = 0;
+  BottomNavigationBarType animType = BottomNavigationBarType.fixed;
+
+  List<Widget> pageData;
 
   @override
   void initState() {
     super.initState();
+    pageData = new List();
+    pageData..add(Home())
+      ..add(SearchPage())
+      ..add(SubScribePage())
+      ..add(PersonalPage());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: PageView(
-        children: <Widget>[
-          Home(),
-          SearchPage(),
-          SubScribePage(),
-          PersonalPage()
-        ],
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              backgroundColor: Colors.black87,
-              icon: Icon(Icons.home),
-              title: Text('Home')),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.black87,
-              icon: Icon(Icons.business),
-              title: Text('Business')),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.black87,
-              icon: Icon(Icons.school),
-              title: Text('School')),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.black87,
-              icon: Icon(Icons.restaurant),
-              title: Text('Restaurant')),
-        ],
-        currentIndex: _selectedIndex,
-        backgroundColor: Colors.black87,
-        fixedColor: Colors.blue,
-        onTap: _onItemTapped,
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    final BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            backgroundColor: Colors.black87,
+            icon: Icon(Icons.home),
+            title: Text('Home')),
+        BottomNavigationBarItem(
+            backgroundColor: Colors.black87,
+            icon: Icon(Icons.business),
+            title: Text('Business')),
+        BottomNavigationBarItem(
+            backgroundColor: Colors.black87,
+            icon: Icon(Icons.school),
+            title: Text('School')),
+        BottomNavigationBarItem(
+            backgroundColor: Colors.black87,
+            icon: Icon(Icons.restaurant),
+            title: Text('Restaurant')),
+      ],
+      currentIndex: currentPosition,
+      backgroundColor: Colors.black87,
+      fixedColor: Colors.blue,
+      onTap: _onItemTapped,
+    );
+
+    return new Scaffold(
+      body: pageData[currentPosition],
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 
   void _onItemTapped(index) {
-    _pageController.jumpToPage(index);
     LogUtils.d(TAG, "_onItemTapped index: " + index.toString());
     setState(() {
-      _selectedIndex = index;
+      currentPosition = index;
     });
   }
 }
