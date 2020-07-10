@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onItemTapped(index) {
     _pageController.jumpToPage(index);
-    LogUtils.d(TAG, "_onItemTapped index: " + index);
+    LogUtils.d(TAG, "_onItemTapped index: " + index.toString());
     setState(() {
       _selectedIndex = index;
     });
