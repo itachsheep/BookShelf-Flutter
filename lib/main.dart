@@ -65,19 +65,23 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
             backgroundColor: Colors.black87,
             icon: Icon(Icons.home),
-            title: Text('Home')),
+            title: Text('主页')
+        ),
         BottomNavigationBarItem(
             backgroundColor: Colors.black87,
             icon: Icon(Icons.business),
-            title: Text('Business')),
+            title: Text('搜索')
+        ),
         BottomNavigationBarItem(
             backgroundColor: Colors.black87,
             icon: Icon(Icons.school),
-            title: Text('School')),
+            title: Text('订阅')
+        ),
         BottomNavigationBarItem(
             backgroundColor: Colors.black87,
             icon: Icon(Icons.restaurant),
-            title: Text('Restaurant')),
+            title: Text('我')
+        ),
       ],
       currentIndex: currentPosition,
       backgroundColor: Colors.black87,
