@@ -8,14 +8,15 @@ import 'package:legado_flutter/utils/logutils.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MultiProvider(
+  /*runApp(MultiProvider(
     providers: [
       Provider<User>(
         create: (context) => User(),
       )
     ],
     child: MyApp(),
-  ));
+  ));*/
+  runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TAG = "_MyHomePageState";
-  int currentPosition = 0;
+  int _selectedIndex = 0;
   BottomNavigationBarType animType = BottomNavigationBarType.fixed;
 
   List<Widget> pageData;
@@ -60,37 +61,49 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black87,
+    final BottomAppBar bottomNavigationBar = new BottomAppBar(
+      color: Colors.white,
+      shape: CircularNotchedRectangle(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          IconButton(
             icon: Icon(Icons.home),
-            title: Text('主页')
-        ),
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black87,
-            icon: Icon(Icons.business),
-            title: Text('搜索')
-        ),
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black87,
-            icon: Icon(Icons.school),
-            title: Text('订阅')
-        ),
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black87,
-            icon: Icon(Icons.restaurant),
-            title: Text('我')
-        ),
-      ],
-      currentIndex: currentPosition,
-      backgroundColor: Colors.black87,
-      fixedColor: Colors.blue,
-      onTap: _onItemTapped,
+            color: _selectedIndex == 0 ? Colors.red : Colors.grey,
+            onPressed: (){
+              _onItemTapped(0);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            color: _selectedIndex == 1 ? Colors.red : Colors.grey,
+            onPressed: (){
+              _onItemTapped(1);
+            },
+          ),
+
+          //SizedBox(width: 50,),
+
+          IconButton(
+            icon: Icon(Icons.photo_filter),
+            color: _selectedIndex == 2 ? Colors.red : Colors.grey,
+            onPressed: (){
+              _onItemTapped(2);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.face),
+            color: _selectedIndex == 3 ? Colors.red : Colors.grey,
+            onPressed: (){
+              _onItemTapped(3);
+            },
+          ),
+        ],
+      ),
     );
 
     return new Scaffold(
-      body: pageData[currentPosition],
+      body: pageData[_selectedIndex],
       bottomNavigationBar: bottomNavigationBar,
     );
   }
@@ -98,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(index) {
     LogUtils.d(TAG, "_onItemTapped index: " + index.toString());
     setState(() {
-      currentPosition = index;
+      _selectedIndex = index;
     });
   }
 }
