@@ -1,3 +1,20 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+import 'package:legado_flutter/utils/logutils.dart';
+
+final String TAG = "SubscribeDataUtil";
+class SubscribeDataUtil {
+  static List<SubscribeData> getFromJson(List<dynamic> json) {
+    if (json == null) {
+      throw Exception('json is null');
+    }
+    List<SubscribeData> datas =
+        json.map((v) => new SubscribeData.fromJson(v)).toList();
+    return datas;
+  }
+}
+
 class SubscribeData {
   String sourceUrl;
   String sourceName;
@@ -24,4 +41,20 @@ class SubscribeData {
   bool loadWithBaseUrl;
   int customOrder;
 
+  SubscribeData.fromJson(Map<String,dynamic> json) {
+    customOrder = json['customOrder'];
+    loadWithBaseUrl = json['loadWithBaseUrl'];
+    enabled = json['enabled'];
+    //sortUrl = json['sortUrl'];
+    ruleArticles = json['ruleArticles'];
+    ruleContent = json['ruleContent'];
+    ruleImage = json['ruleImage'];
+    ruleLink = json['ruleLink'];
+    rulePubDate = json['rulePubDate'];
+    ruleTitle = json['ruleTitle'];
+    sourceUrl = json['sourceUrl'];
+    sourceName = json['sourceName'];
+    sourceIcon = json['sourceIcon'];
+    sourceGroup = json['sourceGroup'];
+  }
 }

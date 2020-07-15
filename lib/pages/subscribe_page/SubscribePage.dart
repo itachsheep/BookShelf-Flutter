@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:legado_flutter/HttpUtil.dart';
 import 'package:legado_flutter/models/SubscribeData.dart';
 import 'package:legado_flutter/utils/logutils.dart';
+import 'dart:convert';
 
 final String TAG = "SubScribePage";
 class SubScribePage extends StatefulWidget {
@@ -23,7 +26,11 @@ class _SubScribeState extends State<SubScribePage> {
 
   void getData() async {
     var url = "https://gitee.com/alanskycn/yuedu/raw/master/JS/RSS/rssSource";
-    
+    String response = await HttpUtil.getInstance().get(url);//get(url,data: {"cid": cid});
+    var encoded = json.decode(response);
+    var item = SubscribeDataUtil.getFromJson(encoded);
+    subScribeData.addAll(item);
+    setState(() {});
   }
 
   @override
@@ -65,6 +72,8 @@ class _SubScribeState extends State<SubScribePage> {
     return new ListView.builder(
         itemCount: subScribeData.length,
         itemBuilder: (context,index){
+          LogUtils.d(TAG, "index: " + index.toString()
+              + ", length: " + subScribeData.length.toString());
           SubscribeData item = subScribeData[index];
           return buildItem(item);
         });
@@ -74,16 +83,26 @@ class _SubScribeState extends State<SubScribePage> {
     return new GestureDetector(
       onTap: () => LogUtils.d(TAG, "go to next page"),
       child: new Column(
+        //mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
           ),
 
           Image.network(
             data.sourceIcon,
             fit: BoxFit.cover,
-            width: 100,
-            height: 125,
+            width: 80,
+            height: 80,
+          ),
+
+          Text(
+            data.sourceName,
+            style: new TextStyle(
+              color: Colors.black,
+              fontSize: 20.0
+            ),
           ),
         ],
       ),
