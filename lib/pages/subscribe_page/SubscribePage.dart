@@ -81,31 +81,29 @@ class _SubScribeState extends State<SubScribePage> {
 
   Widget buildItem(SubscribeData data) {
     return new GestureDetector(
-      onTap: () => LogUtils.d(TAG, "go to next page"),
-      child: new Column(
-        //mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-          ),
+      onTap: () => Navigator.of(context).push(),
+      child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child:new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+              Image.network(
+                data.sourceIcon,
+                fit: BoxFit.cover,
+                width: 80,
+                height: 80,
+              ),
 
-          Image.network(
-            data.sourceIcon,
-            fit: BoxFit.cover,
-            width: 80,
-            height: 80,
-          ),
+              Text(
+                data.sourceName,
+                style: new TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0
+                ),
+              ),
 
-          Text(
-            data.sourceName,
-            style: new TextStyle(
-              color: Colors.black,
-              fontSize: 20.0
-            ),
+            ],)
           ),
-        ],
-      ),
     );
   }
 }
