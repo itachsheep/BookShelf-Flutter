@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:legado_flutter/utils/logutils.dart';
+import 'dart:convert';
 final String TAG = "HttpUtil";
 
 class HttpUtil {
@@ -44,7 +45,12 @@ class HttpUtil {
       }
       LogUtils.d(TAG, "get 请求失败：" + e.message);
     }
-    return response.data;
+    if(response.data is String) {
+      var encoded = json.decode(response.data);
+      return encoded;
+    } else {
+      return response.data;
+    }
   }
 
 }

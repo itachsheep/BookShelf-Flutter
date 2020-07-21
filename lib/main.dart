@@ -3,7 +3,7 @@ import 'package:legado_flutter/models/user_model.dart';
 import 'package:legado_flutter/pages/personal_page/PersonalPage.dart';
 import 'package:legado_flutter/pages/search_page/SearchPage.dart';
 import 'package:legado_flutter/pages/home_page/home_page.dart';
-import 'package:legado_flutter/pages/subscribe_page/SubscribePage.dart';
+import 'package:legado_flutter/pages/subscribe_page/RssPage.dart';
 import 'package:legado_flutter/utils/logutils.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     pageData = new List();
     pageData..add(Home())
       ..add(SearchPage())
-      ..add(SubScribePage())
+      ..add(RssPage())
       ..add(PersonalPage());
   }
 

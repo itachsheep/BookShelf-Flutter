@@ -4,18 +4,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:legado_flutter/HttpUtil.dart';
 import 'package:legado_flutter/models/SubscribeData.dart';
+import 'package:legado_flutter/pages/subscribe_page/RssSortPage.dart';
 import 'package:legado_flutter/utils/logutils.dart';
-import 'dart:convert';
 
-final String TAG = "SubScribePage";
-class SubScribePage extends StatefulWidget {
+
+final String TAG = "RssPage";
+class RssPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new _SubScribeState();
+    return new _RssPageState();
   }
 }
 
-class _SubScribeState extends State<SubScribePage> {
+class _RssPageState extends State<RssPage> {
   List<SubscribeData> subScribeData = [];
 
   @override
@@ -26,9 +27,9 @@ class _SubScribeState extends State<SubScribePage> {
 
   void getData() async {
     var url = "https://gitee.com/alanskycn/yuedu/raw/master/JS/RSS/rssSource";
-    String response = await HttpUtil.getInstance().get(url);//get(url,data: {"cid": cid});
-    var encoded = json.decode(response);
-    var item = SubscribeDataUtil.getFromJson(encoded);
+    var response = await HttpUtil.getInstance().get(url);//get(url,data: {"cid": cid});
+    //var encoded = json.decode(response);
+    var item = SubscribeDataUtil.getFromJson(response);
     subScribeData.addAll(item);
     setState(() {});
   }
@@ -81,7 +82,10 @@ class _SubScribeState extends State<SubScribePage> {
 
   Widget buildItem(SubscribeData data) {
     return new GestureDetector(
-      onTap: () => Navigator.of(context).push(),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context)=> RssSortPage(data.sourceUrl))
+      ),
       child: Padding(
             padding: EdgeInsets.all(10.0),
             child:new Column(
