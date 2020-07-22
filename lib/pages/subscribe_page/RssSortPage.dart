@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:legado_flutter/HttpUtil.dart';
 import 'package:legado_flutter/models/RssSortData.dart';
 import 'package:legado_flutter/models/RssSortData.dart';
+import 'package:legado_flutter/pages/subscribe_page/ReadRssPage.dart';
 import 'package:legado_flutter/utils/logutils.dart';
 
 final String TAG = "RssSortPage";
@@ -84,7 +85,10 @@ class RssSortPageState extends State<RssSortPage> {
         itemBuilder: (context,_index) {
           var itemData = list[_index];
           return new GestureDetector(
-            onTap: ()=> {},
+            onTap: ()=> {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context)=> ReadRssPage(itemData))
+            ),},
             child: Padding(
               padding: EdgeInsets.fromLTRB(5.0, 0, 5.0, 0.0),
               child: new Row(

@@ -10,6 +10,7 @@ import 'package:legado_flutter/utils/logutils.dart';
 
 final String TAG = "RssPage";
 class RssPage extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return new _RssPageState();
